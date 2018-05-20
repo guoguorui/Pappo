@@ -10,6 +10,8 @@ import org.gary.pappo.common.SerializeUtil;
 class MyServerEventHandler extends ServerEventHandler {
 
     private String implPackage;
+    private Reply reply = new Reply(false, null);
+
 
     MyServerEventHandler(String implPackage) {
         this.implPackage = implPackage;
@@ -27,7 +29,7 @@ class MyServerEventHandler extends ServerEventHandler {
             return new Reply(true, SerializeUtil.serialize(rpcResponse, RpcResponse.class));
         } catch (Exception e) {
             e.printStackTrace();
-            return new Reply(false, null);
+            return reply;
         }
     }
 }

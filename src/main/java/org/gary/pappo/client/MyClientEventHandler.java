@@ -13,6 +13,7 @@ public class MyClientEventHandler extends ClientEventHandler {
 
     private ConcurrentHashMap<Integer, CountDownLatch> idToSignal = new ConcurrentHashMap<>();
     ConcurrentHashMap<Integer, RpcResponse> idToResult = new ConcurrentHashMap<>();
+    private Reply reply = new Reply(false, null);
 
     @Override
     public Reply onRead(byte[] readBytes) {
@@ -24,7 +25,7 @@ public class MyClientEventHandler extends ClientEventHandler {
             idToSignal.remove(id);
             countDownLatch.countDown();
         }
-        return new Reply(false, null);
+        return reply;
     }
 
     void writeToServer(RpcRequest rpcRequest, CountDownLatch countDownLatch) {
